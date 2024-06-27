@@ -10,14 +10,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express()
-const port = 3003
+const port = 3005
 
 app.use(cors({ origin: "http://localhost:5173" }))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-mongoose.connect("mongodb://127.0.0.1:27017/firstDB").then(() => {
+mongoose.connect("mongodb://localhost:27017/firstDB").then(() => {
     console.log("database connected");
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
