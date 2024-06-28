@@ -4,6 +4,7 @@ import mongoose, { Schema, model } from 'mongoose'
 import multer from 'multer'
 import path from 'path'
 import { fileURLToPath } from 'url';
+import 'dotenv/config';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,11 +13,16 @@ const __dirname = path.dirname(__filename);
 const app = express()
 const port = 3005
 
+const username = process.env.MONGO_USERNAME
+const password = process.env.MONGO_PASSWORD
+
+console.log(username, password)
+
 app.use(cors({ origin: "*" }))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-mongoose.connect("mongodb+srv://Erfan:ERFAN123AALAM@erfan.1vy9lat.mongodb.net/firstDB?retryWrites=true&w=majority&appName=Erfan").then(() => {
+mongoose.connect("mongodb+srv://" + username + ":" + password + "@erfan.1vy9lat.mongodb.net/firstDB?retryWrites=true&w=majority&appName=Erfan").then(() => {
     console.log("database connected");
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
@@ -103,7 +109,7 @@ const blogModel = model("blogs", blogSchema)
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join( 'uploads/'));
+        cb(null, path.join('uploads/'));
     },
     filename: (req, file, cb) => {
         cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`);
@@ -131,7 +137,7 @@ app.post("/addBlog", upload.single('file'), async (req, res) => {
         desc,
         file
     })
-    
+
     await blogToSave.save()
     console.log(req.body)
     console.log(req.file)
