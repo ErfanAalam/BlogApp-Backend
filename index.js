@@ -16,8 +16,7 @@ app.use(cors({ origin: "*" }))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
-mongoose.connect("mongodb+srv://Erfan:786786@ek@erfan.1vy9lat.mongodb.net/?retryWrites=true&w=majority&appName=Erfan/firstDB").then(() => {
+mongoose.connect("mongodb+srv://Erfan:ERFAN123AALAM@erfan.1vy9lat.mongodb.net/firstDB?retryWrites=true&w=majority&appName=Erfan").then(() => {
     console.log("database connected");
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
